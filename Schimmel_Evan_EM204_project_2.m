@@ -38,5 +38,19 @@ for ind=1:length(round_tube_data)
         round_tube_valid(j,4) = sigma_beam;
     end
 end
+%writematrix(round_tube_valid,'RoundTube_Export.xlsx','Sheet',1,'Range','A2')
 
-writematrix(round_tube_valid,'RoundTube_Export.xlsx','Sheet',1)
+j=0;
+for ind=1:length(round_bar_data)
+    OD = round_bar_data(ind,1);  
+    I = pi*((OD/2)^4)/4;
+    sigma_beam = (1/1000) * (m_beam * (OD/2)) / I; % ksi
+    round_bar_data(ind,4) = sigma_beam;
+    
+    if sigma_beam < sigma_max
+        j=j+1;
+        round_bar_valid(j,1) = OD;
+        round_bar_valid(j,4) = sigma_beam;
+    end
+end
+%writematrix(round_bar_valid,'RoundBar_Export.xlsx','Sheet',1,'Range','A2')
