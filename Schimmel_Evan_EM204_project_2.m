@@ -60,12 +60,24 @@ for ind=1:length(round_tube_valid)
     wt = round_tube_valid(ind,5) * (124/12);
     PF = wt/100 + round_tube_valid(ind,6) / 1000;
     round_tube_valid(ind,7) = PF;
-    [index,bestPF] = find(
+    [best_PF_tube,loc] = min(round_tube_valid(:,7));
 end
 
-round_bar_valid = readmatrix('RoundBar_Valid');
-for ind=1:length(round_bar_valid)
-    wt = round_bar_valid(ind,5) * (124/12);
-    PF = wt/100 + round_bar_valid(ind,6) / 1000;
-    round_bar_valid(ind,7) = PF;
-end
+% round_bar_valid = readmatrix('RoundBar_Valid');
+% for ind=1:length(round_bar_valid)
+%     wt = round_bar_valid(ind,5) * (124/12);
+%     PF = wt/100 + round_bar_valid(ind,6) / 1000;
+%     round_bar_valid(ind,7) = PF;
+% end
+
+best_OD = round_tube_valid(loc,1);
+best_wall = round_tube_valid(loc,2);
+best_ID = round_tube_valid(loc,3);
+best_sigma = round_tube_valid(loc,4);
+best_FOS = sigma_yield / best_sigma;
+
+fprintf('Ideal support dimensions: \n');
+fprintf('OD: %5.3f in \nWall: %5.3f in \nID: %5.3f in \n\n',best_OD,best_wall,best_ID);
+fprintf('Loading measurements: \n');
+fprintf('Flexural stress: %5.3f ksi \nFOS: %5.3f \n\n',best_sigma,best_FOS);
+
