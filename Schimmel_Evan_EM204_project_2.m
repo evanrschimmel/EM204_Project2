@@ -38,7 +38,7 @@ for ind=1:length(round_tube_data)
         round_tube_valid(j,4) = sigma_beam;
     end
 end
-%writematrix(round_tube_valid,'RoundTube_Export.xlsx','Sheet',1,'Range','A2')
+writematrix(round_tube_valid,'RoundTube_Export.xlsx','Sheet',1,'Range','A2')
 
 j=0;
 for ind=1:length(round_bar_data)
@@ -53,4 +53,19 @@ for ind=1:length(round_bar_data)
         round_bar_valid(j,4) = sigma_beam;
     end
 end
-%writematrix(round_bar_valid,'RoundBar_Export.xlsx','Sheet',1,'Range','A2')
+writematrix(round_bar_valid,'RoundBar_Export.xlsx','Sheet',1,'Range','A2')
+
+round_tube_valid = readmatrix('RoundTube_Valid');
+for ind=1:length(round_tube_valid)
+    wt = round_tube_valid(ind,5) * (124/12);
+    PF = wt/100 + round_tube_valid(ind,6) / 1000;
+    round_tube_valid(ind,7) = PF;
+    [index,bestPF] = find(
+end
+
+round_bar_valid = readmatrix('RoundBar_Valid');
+for ind=1:length(round_bar_valid)
+    wt = round_bar_valid(ind,5) * (124/12);
+    PF = wt/100 + round_bar_valid(ind,6) / 1000;
+    round_bar_valid(ind,7) = PF;
+end
